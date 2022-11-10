@@ -26,10 +26,10 @@ let track = 0;
 let duration;
 
 const playList = [
-  { audio: './music/testMusic/cinim-brainfluid-122844.mp3', cover: './pictures/vinyl-g932488b8a_640.png', title: 'deep urban' },
-  { audio: './music/testMusic/drop-it-124014.mp3', cover: './pictures/vinyl-gfeb813f9c_640.jpg', title: 'feeling happy mixkit' },
-  { audio: './music/testMusic/password-infinity-123276.mp3', cover: './pictures/vinyl-record-gcc2dcaea3_640.png', title: 'sun and his daughter' },
-  { audio: './music/testMusic/the-beat-of-nature-122841.mp3', cover: './pictures/vinyl-records-g635942f01_640.jpg', title: 'tech house vibes 130' },
+  { audio: './music/Gemini - half.cool _ Royalty Free Music No Copyright Instrumental Background Music Free Download-y7SoofrR8gA.mp3', cover: './pictures/vinyl-g932488b8a_640.png', title: 'deep urban' },
+  { audio: './music/Hey There - half.cool _ Royalty Free Music No Copyright Instrumental Background Music Free Download-E4mT2iMZcEA.mp3', cover: './pictures/vinyl-gfeb813f9c_640.jpg', title: 'feeling happy mixkit' },
+  { audio: './music/Peachy - half.cool _ Royalty Free Music No Copyright Instrumental Background Music Free Download-iI_Uq__ASnI.mp3', cover: './pictures/vinyl-record-gcc2dcaea3_640.png', title: 'sun and his daughter' },
+  { audio: './music/Summer - Bensound _ Royalty Free Music - No Copyright Music-KxwUy2S2n-Q.mp3', cover: './pictures/vinyl-records-g635942f01_640.jpg', title: 'tech house vibes 130' },
 ];
 
 // initial setupt: load first song when side loads
