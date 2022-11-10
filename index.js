@@ -19,10 +19,10 @@ const title = document.getElementById('title');
 let track = 0;
 
 const playList = [
-  { audio: './music/kroko.mp3', cover: './pictures/kroko.jpg', title: 'krokojackas df gh jijikljljh' },
-  { audio: './music/doom.mp3', cover: './pictures/doom.jpg', title: 'doom mfdoom dangermouse' },
-  { audio: './music/freddie.mp3', cover: './pictures/freddie.jpg', title: 'freddie gibbs ganfster g bunny rabbit' },
-  { audio: './music/biggy.mp3', cover: './pictures/biggy.jpg', title: 'biggy smalls' },
+  { audio: './music/mixkit-deep-urban-623.mp3', cover: './pictures/vinyl-g932488b8a_640.png', title: 'deep urban' },
+  { audio: './music/mixkit-hip-hop-02-738.mp3', cover: './pictures/vinyl-gfeb813f9c_640.jpg', title: 'hip hop mixkit' },
+  { audio: './music/mixkit-sun-and-his-daughter-580.mp3', cover: './pictures/vinyl-record-gcc2dcaea3_640.png', title: 'sun and his daughter' },
+  { audio: './music/mixkit-tech-house-vibes-130.mp3', cover: './pictures/vinyl-records-g635942f01_640.jpg', title: 'tech house vibes 130' },
 ];
 
 // initial setupt: load first song when side loads
