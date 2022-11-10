@@ -4,6 +4,10 @@
 // - make code more understandable
 //    - add classes - make more functions with stuff that repeats itself
 //    - write comments- also in .css and .html
+// bugs:
+// -- after song ends:
+// - progressbar restarts after song has ended. (progressBar loops)
+// - albumcover keeps spinning
 //
 
 // global variables
@@ -20,7 +24,7 @@ let track = 0;
 
 const playList = [
   { audio: './music/mixkit-deep-urban-623.mp3', cover: './pictures/vinyl-g932488b8a_640.png', title: 'deep urban' },
-  { audio: './music/mixkit-hip-hop-02-738.mp3', cover: './pictures/vinyl-gfeb813f9c_640.jpg', title: 'hip hop mixkit' },
+  { audio: './music/mixkit-feeling-happy-5.mp3', cover: './pictures/vinyl-gfeb813f9c_640.jpg', title: 'feeling happy mixkit' },
   { audio: './music/mixkit-sun-and-his-daughter-580.mp3', cover: './pictures/vinyl-record-gcc2dcaea3_640.png', title: 'sun and his daughter' },
   { audio: './music/mixkit-tech-house-vibes-130.mp3', cover: './pictures/vinyl-records-g635942f01_640.jpg', title: 'tech house vibes 130' },
 ];
@@ -80,6 +84,7 @@ playBtn.addEventListener('click', () => {
   }
 });
 
+// because the info node gets cloned, i have to get the title element again with document.getElementById
 forwardBtn.addEventListener('click', () => {
   if (track >= playList.length - 1) { // check if last song
     track = 0;
