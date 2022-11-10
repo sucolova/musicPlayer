@@ -1,4 +1,4 @@
-// still todo:
+// todo:
 // - auto next song after end of current song
 // - click on progressbar jumps to section in song
 // - make code more understandable
@@ -29,7 +29,7 @@ const playList = [
 
 audio.src = playList[track].audio;
 image.src = playList[track].cover;
-title.innerText = playList[track].title;
+title.innerHTML = playList[track].title;
 
 // get duration after song loaded
 let duration;
@@ -88,7 +88,7 @@ forwardBtn.addEventListener('click', () => {
   }
   audio.src = playList[track].audio;
   image.src = playList[track].cover;
-  title.innerText = playList[track].title;
+  document.getElementById('title').innerHTML = playList[track].title; // i have to call getElementById again to get a reference to the title html element.
   if (!isPlaying()) audio.play(); // if pauseBtn is visible, play the song
   resetAnimation(); // set back the progressbar
 });
@@ -101,7 +101,7 @@ backBtn.addEventListener('click', () => {
   }
   audio.src = playList[track].audio;
   image.src = playList[track].cover;
-  title.innerText = playList[track].title;
+  document.getElementById('title').innerHTML = playList[track].title;
   if (!isPlaying()) audio.play();
   resetAnimation();
 });
