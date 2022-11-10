@@ -5,6 +5,11 @@
 // bugs:
 //  -- the progressbar for the second song is only half the width.
 //    -- i think duration doesn't get updated properly for the song after the first played song.
+//    -- maybe some mp3 files have wrong matadata for their duration?
+//    -- maybe it is a browser issue because it seems to work on my phone
+//        -- but on my phone the first songdurations seems to get no value.
+//    -- i think: onloadeddata is an async event, i only get the duration after that event, so sometimes duration for next song is still the old duration
+//    -- changed loadedData to onLoadedMetadata because duration is in metadata and it's faster i think
 //
 
 // global variables
@@ -21,10 +26,10 @@ let track = 0;
 let duration;
 
 const playList = [
-  { audio: './music/mixkit-deep-urban-623.mp3', cover: './pictures/vinyl-g932488b8a_640.png', title: 'deep urban' },
-  { audio: './music/mixkit-feeling-happy-5.mp3', cover: './pictures/vinyl-gfeb813f9c_640.jpg', title: 'feeling happy mixkit' },
-  { audio: './music/mixkit-sun-and-his-daughter-580.mp3', cover: './pictures/vinyl-record-gcc2dcaea3_640.png', title: 'sun and his daughter' },
-  { audio: './music/mixkit-tech-house-vibes-130.mp3', cover: './pictures/vinyl-records-g635942f01_640.jpg', title: 'tech house vibes 130' },
+  { audio: './music/testMusic/cinim-brainfluid-122844.mp3', cover: './pictures/vinyl-g932488b8a_640.png', title: 'deep urban' },
+  { audio: './music/testMusic/drop-it-124014.mp3', cover: './pictures/vinyl-gfeb813f9c_640.jpg', title: 'feeling happy mixkit' },
+  { audio: './music/testMusic/password-infinity-123276.mp3', cover: './pictures/vinyl-record-gcc2dcaea3_640.png', title: 'sun and his daughter' },
+  { audio: './music/testMusic/the-beat-of-nature-122841.mp3', cover: './pictures/vinyl-records-g635942f01_640.jpg', title: 'tech house vibes 130' },
 ];
 
 // initial setupt: load first song when side loads
@@ -52,7 +57,7 @@ const playPause = () => {
     playBtn.classList.add('fa-pause');
     image.style.animationPlayState = 'running';
     audio.play();
-    info.style.transform = 'translateY(-100px)'; // move up the ifobox
+    info.style.transform = 'translateY(-100px)'; // move up the infobox
     info.style.animation = `gradient ${duration}s linear`; // set the animation for the progress of the song
     info.style.animationPlayState = 'running';
   } else {
@@ -92,7 +97,7 @@ const prevSong = () => {
 };
 
 // event listeners:
-audio.onloadeddata = () => {
+audio.onloadedmetadata = () => {
   duration = audio.duration;
 };
 
