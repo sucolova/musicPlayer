@@ -1,5 +1,5 @@
 // todo:
-// - click on progressbar jumps to section in song
+// - click in progressbar jumps to section in song
 // - make code easier to read
 //    - add classes and functions for repeating code
 // bugs:
