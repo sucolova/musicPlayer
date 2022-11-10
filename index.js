@@ -58,10 +58,22 @@ function resetAnimation() {
   info = document.getElementById('info');
 }
 
-// reset progressbar when song has finished
-audio.onended = () => {
-  resetAnimation();
+const nextSong = () => {
+  if (track >= playList.length - 1) { // check if last song
+    track = 0;
+  } else {
+    track += 1;
+  }
+  audio.src = playList[track].audio;
+  image.src = playList[track].cover;
+  document.getElementById('title').innerHTML = playList[track].title; // i have to call getElementById again to get a reference to the title html element.
+  if (!isPlaying()) audio.play(); // if pauseBtn is visible, play the song
+  resetAnimation(); // set back the progressbar
 };
+
+
+// reset progressbar when song has finished
+audio.onended = () => nextSong(); 
 
 // Button event listeners:
 
@@ -84,19 +96,9 @@ playBtn.addEventListener('click', () => {
   }
 });
 
+
 // because the info node gets cloned, i have to get the title element again with document.getElementById
-forwardBtn.addEventListener('click', () => {
-  if (track >= playList.length - 1) { // check if last song
-    track = 0;
-  } else {
-    track += 1;
-  }
-  audio.src = playList[track].audio;
-  image.src = playList[track].cover;
-  document.getElementById('title').innerHTML = playList[track].title; // i have to call getElementById again to get a reference to the title html element.
-  if (!isPlaying()) audio.play(); // if pauseBtn is visible, play the song
-  resetAnimation(); // set back the progressbar
-});
+forwardBtn.addEventListener('click', nextSong);
 
 backBtn.addEventListener('click', () => {
   if (track <= 0) {
