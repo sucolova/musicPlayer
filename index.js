@@ -1,13 +1,10 @@
 // todo:
-// - auto next song after end of current song
 // - click on progressbar jumps to section in song
-// - make code more understandable
-//    - add classes - make more functions with stuff that repeats itself
-//    - write comments- also in .css and .html
+// - make code easier to read
+//    - add classes and functions for repeating code
 // bugs:
-// -- after song ends:
-// - progressbar restarts after song has ended. (progressBar loops)
-// - albumcover keeps spinning
+//  -- the progressbar for the second song is only half the width.
+//    -- i think duration doesn't get updated properly for the song after the first played song.
 //
 
 // global variables
@@ -21,6 +18,7 @@ const backBtn = document.getElementById('backBtn');
 let info = document.getElementById('info');
 const title = document.getElementById('title');
 let track = 0;
+let duration;
 
 const playList = [
   { audio: './music/mixkit-deep-urban-623.mp3', cover: './pictures/vinyl-g932488b8a_640.png', title: 'deep urban' },
@@ -30,54 +28,25 @@ const playList = [
 ];
 
 // initial setupt: load first song when side loads
-
 audio.src = playList[track].audio;
 image.src = playList[track].cover;
 title.innerHTML = playList[track].title;
 
-// get duration after song loaded
-let duration;
-
-audio.onloadeddata = () => {
-  duration = audio.duration;
-};
-
 // check if a song is playing
-
 function isPlaying() { // returns true if playBtn is visible
   if (playBtn.classList[1] === 'fa-play') return true;
   return false;
 }
 
-// reset the progressbar:
-// -- CSS aninations don't have a value to set for this, so i have to clone, delete and replace the info element'
 
-function resetAnimation() {
+// eventHandlers:
+function resetAnimation() { // CSS aninations don't have a value to set for this, so i have to clone, delete and replace the info element'
   const clone = info.cloneNode(true);
   playerContainer.replaceChild(clone, info);
   info = document.getElementById('info');
 }
 
-const nextSong = () => {
-  if (track >= playList.length - 1) { // check if last song
-    track = 0;
-  } else {
-    track += 1;
-  }
-  audio.src = playList[track].audio;
-  image.src = playList[track].cover;
-  document.getElementById('title').innerHTML = playList[track].title; // i have to call getElementById again to get a reference to the title html element.
-  if (!isPlaying()) audio.play(); // if pauseBtn is visible, play the song
-  resetAnimation(); // set back the progressbar
-};
-
-
-// reset progressbar when song has finished
-audio.onended = () => nextSong(); 
-
-// Button event listeners:
-
-playBtn.addEventListener('click', () => {
+const playPause = () => {
   if (isPlaying()) {
     playBtn.classList.remove('fa-play'); // change the button to pause
     playBtn.classList.add('fa-pause');
@@ -94,13 +63,22 @@ playBtn.addEventListener('click', () => {
     info.style.transform = 'translateY(0px)'; // retrieve the infobox
     info.style.animationPlayState = 'paused';
   }
-});
+};
 
+const nextSong = () => {
+  if (track >= playList.length - 1) { // check if last song
+    track = 0;
+  } else {
+    track += 1;
+  }
+  audio.src = playList[track].audio;
+  image.src = playList[track].cover;
+  document.getElementById('title').innerHTML = playList[track].title; // because the info node gets cloned, i have to get the title element again with document.getElementById to get a reference to the title html element.
+  if (!isPlaying()) audio.play(); // if pauseBtn is visible, play the song
+  resetAnimation(); // set back the progressbar
+};
 
-// because the info node gets cloned, i have to get the title element again with document.getElementById
-forwardBtn.addEventListener('click', nextSong);
-
-backBtn.addEventListener('click', () => {
+const prevSong = () => {
   if (track <= 0) {
     track = playList.length - 1;
   } else {
@@ -111,4 +89,14 @@ backBtn.addEventListener('click', () => {
   document.getElementById('title').innerHTML = playList[track].title;
   if (!isPlaying()) audio.play();
   resetAnimation();
-});
+};
+
+// event listeners:
+audio.onloadeddata = () => {
+  duration = audio.duration;
+};
+
+audio.onended = () => nextSong(); 
+playBtn.addEventListener('click', playPause);
+forwardBtn.addEventListener('click', nextSong);
+backBtn.addEventListener('click', prevSong);
