@@ -49,16 +49,21 @@ function resetAnimation() { // CSS aninations don't have a value to set for this
   const clone = info.cloneNode(true);
   playerContainer.replaceChild(clone, info);
   info = document.getElementById('info');
+  info.style.animation = `gradient ${duration}s linear`; // set the animation for the progress of the song
+}
+function getDuration() {
+  const duration = audio.onloadedmetadata(() => {
+    return audio.duration})
+  return duration;
 }
 
-const playPause = () => {
+function playPause() {
   if (isPlaying()) {
     playBtn.classList.remove('fa-play'); // change the button to pause
     playBtn.classList.add('fa-pause');
     image.style.animationPlayState = 'running';
     audio.play();
     info.style.transform = 'translateY(-100px)'; // move up the infobox
-    info.style.animation = `gradient ${duration}s linear`; // set the animation for the progress of the song
     info.style.animationPlayState = 'running';
   } else {
     playBtn.classList.remove('fa-pause');
@@ -99,8 +104,9 @@ const prevSong = () => {
 // event listeners:
 audio.onloadedmetadata = () => {
   duration = audio.duration;
+  info.style.animation = `gradient ${duration}s linear`; // set the animation for the progress of the song
+  console.log(duration);
 };
-
 audio.onended = () => nextSong(); 
 playBtn.addEventListener('click', playPause);
 forwardBtn.addEventListener('click', nextSong);
