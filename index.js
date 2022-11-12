@@ -2,15 +2,8 @@
 // - click in progressbar jumps to section in song
 // - make code easier to read
 //    - add classes and functions for repeating code
-// bugs:
-//  -- the progressbar for the second song is only half the width.
-//    -- i think duration doesn't get updated properly for the song after the first played song.
-//    -- maybe some mp3 files have wrong matadata for their duration?
-//    -- maybe it is a browser issue because it seems to work on my phone
-//        -- but on my phone the first songdurations seems to get no value.
-//    -- i think: onloadeddata is an async event, i only get the duration after that event, so sometimes duration for next song is still the old duration
-//    -- changed loadedData to onLoadedMetadata because duration is in metadata and it's faster i think
-//
+//    -- for example: resetAnimation could be in onloadedmetadata handler
+
 
 // global variables
 const imageContainer = document.getElementById('imageContainer');
@@ -51,11 +44,6 @@ function resetAnimation() { // CSS aninations don't have a value to set for this
   info = document.getElementById('info');
   info.style.animation = `gradient ${duration}s linear`; // set the animation for the progress of the song
 }
-function getDuration() {
-  const duration = audio.onloadedmetadata(() => {
-    return audio.duration})
-  return duration;
-}
 
 function playPause() {
   if (isPlaying()) {
@@ -85,7 +73,7 @@ const nextSong = () => {
   image.src = playList[track].cover;
   document.getElementById('title').innerHTML = playList[track].title; // because the info node gets cloned, i have to get the title element again with document.getElementById to get a reference to the title html element.
   if (!isPlaying()) audio.play(); // if pauseBtn is visible, play the song
-  resetAnimation(); // set back the progressbar
+  resetAnimation(); // sets progressbar back
 };
 
 const prevSong = () => {
@@ -102,12 +90,16 @@ const prevSong = () => {
 };
 
 // event listeners:
-audio.onloadedmetadata = () => {
+audio.onloadedmetadata = () => { // duration of the song is needed for the progressbar. 
   duration = audio.duration;
   info.style.animation = `gradient ${duration}s linear`; // set the animation for the progress of the song
-  console.log(duration);
+  if (isPlaying()) {
+    info.style.animationPlayState = 'paused';
+  };
 };
-audio.onended = () => nextSong(); 
+audio.onended = () => {
+  nextSong();
+};
 playBtn.addEventListener('click', playPause);
 forwardBtn.addEventListener('click', nextSong);
 backBtn.addEventListener('click', prevSong);

@@ -92,6 +92,7 @@ h1 {
   height: 100px;
   width: 400px;
   background: linear-gradient(to right, #268bd2 50%, #b58900 50%);
+  animation-play-state: paused;
   background-size: 200% 100%;
   margin-left: auto;
   border-radius: 40px 40px 0px 0px;
